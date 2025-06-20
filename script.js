@@ -31,8 +31,8 @@ function cellElement(){
         cell.onclick = function(event) {
             //take the specific cell from the event
             let cell = event.target;
-            console.log(cell);
-            console.log('The clicked cell has id: ' + cell.id);
+            /* console.log(cell); */
+            /* console.log('The clicked cell has id: ' + cell.id); */
             //if the cell is empty
             if(cell.textContent === ""){
                 //if the variable currentPlayer === "x"
@@ -48,11 +48,13 @@ function cellElement(){
             }else{
                 console.log("The cell is already occupied");
             }
+            chekWin();
         };
     });
+    
 }
 
-//TEST
+//ONCLICK
 btnPlayer1.onclick = function(){
     currentPlayer1();
     cellElement();
@@ -61,5 +63,36 @@ btnPlayer1.onclick = function(){
 btnPlayer2.onclick = function(){
     currentPlayer2();
     cellElement();
+}
+
+function chekWin(){
+    //winning combinations
+    const winningCombinations = [
+        [1, 2, 3],  
+        [4, 5, 6],  
+        [7, 8, 9],  
+        [1, 4, 7],  
+        [2, 5, 8],  
+        [3, 6, 9],  
+        [1, 5, 9],  
+        [3, 5, 7]   
+    ];
+    //for cycle for iterate on winning combinations
+    for (let i = 0; i<winningCombinations.length; i++){
+        //winning conbinations by index
+        let combination = winningCombinations[i];
+
+        //tTake the cells from Dom for ID; The numerical part of each ID is the same as each element from the combination variable
+        let cellA = document.getElementById("cell-" + combination[0]);
+        let cellB = document.getElementById("cell-" + combination[1]);
+        let cellC = document.getElementById("cell-" + combination[2]);
+        // if the textContet of each cell(A,B,C) is the same, there is a victory
+        if(cellA.textContent !== "" &&
+            cellA.textContent === cellB.textContent &&
+            cellB.textContent === cellC.textContent){
+            console.log("vinto da:", cellA.textContent);
+            break;
+        }          
+    }
 }
 
