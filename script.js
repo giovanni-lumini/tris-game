@@ -1,6 +1,9 @@
 //VARIABLES
-//understand how is current player 
 let currentPlayer = "";
+let gameFinished = false;
+let win = false;
+//to understand how many cells have been clicked
+let count = 0;
 
 //GET ELEMENTS FROM DOM
 //player buttons 
@@ -11,6 +14,7 @@ let btnPlayer2 = document.getElementById("btn-player2");
 let cells = document.querySelectorAll(".cell");
 
 //FUNCTIONS
+//understand how is current player 
 function setCurrentPlayer(event){
     let buttonPlayer = event.target.id;
     if (buttonPlayer === "btn-player1"){
@@ -41,16 +45,20 @@ function cellElement(){
                     cell.textContent = "x";
                     currentPlayer = "o";
                 //else
-                }else{
+                }else {
                     cell.textContent = "o";
                     currentPlayer = "x";
                 }
+                //to understand how many cells have been clicked
+                count++;
             //if the cell isn't empty
             }else{
                 console.log("The cell is already occupied");
             }
             // call the function for verify if there is a victory
-            checkWin()
+            checkWin();
+            //
+            draw();
         };
     });
 }
@@ -87,6 +95,12 @@ function checkWin(){
             });
             break;
         }
+    }
+}
+
+function draw(){
+    if(count === 9 && win === false){
+        console.log("draw");
     }
 }
 
