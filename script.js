@@ -40,6 +40,11 @@ function cellElement(){
             let cell = event.target;
             /* console.log(cell); */
             /* console.log('The clicked cell has id: ' + cell.id); */
+            //message if a player clicks on a cell before choosing a current player
+            if (currentPlayer === "") {
+                console.log("Choose a player to start the game");
+                return;
+            }
             //if the cell is empty
             if(cell.textContent === ""){
                 //if the variable currentPlayer === "x"
@@ -92,46 +97,43 @@ function checkWin(){
             cellB.textContent === cellC.textContent){
             console.log("The winner is:", cellA.textContent);
             win = true;
-            //if there is a winner player, isn't possible to click on the cells
-            cells.forEach(cell => {
-                cell.onclick = null;
-            });
+            gameFinished = true;
             break;
         }
     }
-}
-
-//restart the game
-function restart(){
-    btnPlayer1.disabled = false;
-    btnPlayer2.disabled = false;
-    currentPlayer = "";
-    gameFinished = false;
-    win = false;
-    count = 0;
-
-    cells.forEach(cell => {
-        cell.textContent = "";
-        cell.onclick = null;
-    })
 }
 
 //check if there is a draw
 function draw(){
     if(count === 9 && win === false){
         console.log("draw");
+        gameFinished = true;
     }
 }
 
-//ONCLICK
+//restart the game
+function restart(){
+    //restore their original values
+    btnPlayer1.disabled = false;
+    btnPlayer2.disabled = false;
+    currentPlayer = "";
+    gameFinished = false;
+    win = false;
+    count = 0;
+    cells.forEach(cell => {
+        cell.textContent = "";
+    })
+}
+
+//EVENT HANDLERS
+cellElement();
+
 btnPlayer1.onclick = function(event){
     setCurrentPlayer(event);
-    cellElement();
 }
 
 btnPlayer2.onclick = function(event){
     setCurrentPlayer(event);
-    cellElement();
 }
 
 btnRestart.onclick = function(){
