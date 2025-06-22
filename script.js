@@ -12,15 +12,28 @@ let cells = document.querySelectorAll(".cell");
 
 //FUNCTIONS
 //current player1
-function currentPlayer1(){
+/* function currentPlayer1(){
     currentPlayer = "X";
     console.log("Start Player1 (" + currentPlayer + ")");  
-}
+} */
 
 //current player2
-function currentPlayer2(){
+/* function currentPlayer2(){
     currentPlayer = "O";
     console.log("Start Player2 (" + currentPlayer + ")");  
+} */
+
+function setCurrentPlayer(event){
+    let buttonPlayer = event.target.id;
+    if (buttonPlayer === "btn-player1"){
+        currentPlayer = "X";
+        console.log("Start Player1 (" + currentPlayer + ")"); 
+    }else{
+        currentPlayer = "O";
+    console.log("Start Player2 (" + currentPlayer + ")");
+    }
+    btnPlayer1.disabled = true;
+    btnPlayer2.disabled = true;
 }
 
 //add "x" or "o" into cell
@@ -48,6 +61,7 @@ function cellElement(){
             }else{
                 console.log("The cell is already occupied");
             }
+            // call the function for verify if there is a victory
             chekWin();
         };
     });
@@ -55,13 +69,13 @@ function cellElement(){
 }
 
 //ONCLICK
-btnPlayer1.onclick = function(){
-    currentPlayer1();
+btnPlayer1.onclick = function(event){
+    setCurrentPlayer(event);
     cellElement();
 }
 
-btnPlayer2.onclick = function(){
-    currentPlayer2();
+btnPlayer2.onclick = function(event){
+    setCurrentPlayer(event);
     cellElement();
 }
 
@@ -95,4 +109,14 @@ function chekWin(){
         }          
     }
 }
+
+//players buttons
+/* 
+una volta premuti, si aggiunge una classe css che li fa sparire
+*/
+
+//restart button
+/* 
+al click del bottone, le celle si svuotano e riappaiono i pulsanti di selezione del player
+*/
 
