@@ -2,8 +2,9 @@
 let currentPlayer = "";
 let gameFinished = false;
 let win = false;
-//to understand how many cells have been clicked
-let count = 0;
+let countCellsClicked = 0;
+let pointPlayer1 = 0;
+let pointPlayer2 = 0;
 
 //GET ELEMENTS FROM DOM
 //player buttons 
@@ -14,6 +15,9 @@ let btnPlayer2 = document.getElementById("btn-player2");
 let cells = document.querySelectorAll(".cell");
 //restart button
 let btnRestart = document.getElementById("btn-restart");
+//score
+let scorePlayer1 = document.getElementById("score-player1");
+let scorePlayer2 = document.getElementById("score-player2");
 
 //FUNCTIONS
 //check how is current player 
@@ -57,7 +61,7 @@ function cellElement(){
                     currentPlayer = "x";
                 }
                 //to understand how many cells have been clicked
-                count++;
+                countCellsClicked++;
             //if the cell isn't empty
             }else{
                 console.log("The cell is already occupied");
@@ -95,17 +99,32 @@ function checkWin(){
         if(cellA.textContent !== "" &&
             cellA.textContent === cellB.textContent &&
             cellB.textContent === cellC.textContent){
-            console.log("The winner is:", cellA.textContent);
             win = true;
             gameFinished = true;
+            console.log("The winner is:", cellA.textContent);
+            if(gameFinished === true){
+                for(let i = 0; i< cells.length; i++){
+                    if(cells[i].textContent === ""){
+                        cells[i].onclick = null;
+                    }
+                }
+            }
+            if(cellA.textContent === "x"){
+                pointPlayer1++;
+                scorePlayer1.textContent = pointPlayer1;
+            }else{
+                pointPlayer2++;
+                scorePlayer2.textContent = pointPlayer2;
+            }
             break;
         }
     }
+    
 }
 
 //check if there is a draw
 function draw(){
-    if(count === 9 && win === false){
+    if(countCellsClicked === 9 && win === false){
         console.log("draw");
         gameFinished = true;
     }
@@ -119,10 +138,12 @@ function restart(){
     currentPlayer = "";
     gameFinished = false;
     win = false;
-    count = 0;
+    countCellsClicked = 0;
     cells.forEach(cell => {
         cell.textContent = "";
     })
+    //reactivate clicks
+    cellElement();
 }
 
 //EVENT HANDLERS
