@@ -12,9 +12,11 @@ let btnPlayer1 = document.getElementById("btn-player1");
 let btnPlayer2 = document.getElementById("btn-player2");
 //cells
 let cells = document.querySelectorAll(".cell");
+//restart button
+let btnRestart = document.getElementById("btn-restart");
 
 //FUNCTIONS
-//understand how is current player 
+//check how is current player 
 function setCurrentPlayer(event){
     let buttonPlayer = event.target.id;
     if (buttonPlayer === "btn-player1"){
@@ -28,7 +30,7 @@ function setCurrentPlayer(event){
     btnPlayer2.disabled = true;
 }
 
-//add "x" or "o" into cell
+//add "x" or "o" into cells
 function cellElement(){
     //for each cell
     cells.forEach(cell => {
@@ -63,6 +65,7 @@ function cellElement(){
     });
 }
 
+//check if there is a winner
 function checkWin(){
     //winning combinations
     const winningCombinations = [
@@ -98,6 +101,22 @@ function checkWin(){
     }
 }
 
+//restart the game
+function restart(){
+    btnPlayer1.disabled = false;
+    btnPlayer2.disabled = false;
+    currentPlayer = "";
+    gameFinished = false;
+    win = false;
+    count = 0;
+
+    cells.forEach(cell => {
+        cell.textContent = "";
+        cell.onclick = null;
+    })
+}
+
+//check if there is a draw
 function draw(){
     if(count === 9 && win === false){
         console.log("draw");
@@ -115,10 +134,7 @@ btnPlayer2.onclick = function(event){
     cellElement();
 }
 
-
-
-//restart button
-/* 
-al click del bottone, le celle si svuotano e riappaiono i pulsanti di selezione del player
-*/
+btnRestart.onclick = function(){
+    restart();
+}
 
