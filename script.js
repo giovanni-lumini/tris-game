@@ -11,22 +11,8 @@ let btnPlayer2 = document.getElementById("btn-player2");
 let cells = document.querySelectorAll(".cell");
 
 //FUNCTIONS
-//current player1
-/* function currentPlayer1(){
-    currentPlayer = "X";
-    console.log("Start Player1 (" + currentPlayer + ")");  
-} */
-
-//current player2
-/* function currentPlayer2(){
-    currentPlayer = "O";
-    console.log("Start Player2 (" + currentPlayer + ")");  
-} */
-
 function setCurrentPlayer(event){
     let buttonPlayer = event.target.id;
-    console.log(buttonPlayer);
-    
     if (buttonPlayer === "btn-player1"){
         currentPlayer = "x";
         console.log("Start Player1 (" + currentPlayer + ")"); 
@@ -64,24 +50,12 @@ function cellElement(){
                 console.log("The cell is already occupied");
             }
             // call the function for verify if there is a victory
-            chekWin();
+            checkWin()
         };
     });
-    
 }
 
-//ONCLICK
-btnPlayer1.onclick = function(event){
-    setCurrentPlayer(event);
-    cellElement();
-}
-
-btnPlayer2.onclick = function(event){
-    setCurrentPlayer(event);
-    cellElement();
-}
-
-function chekWin(){
+function checkWin(){
     //winning combinations
     const winningCombinations = [
         [1, 2, 3],  
@@ -97,8 +71,7 @@ function chekWin(){
     for (let i = 0; i<winningCombinations.length; i++){
         //winning conbinations by index
         let combination = winningCombinations[i];
-
-        //tTake the cells from Dom for ID; The numerical part of each ID is the same as each element from the combination variable
+        //take the cells from Dom for ID; The numerical part of each ID is the same as each element from the combination variable
         let cellA = document.getElementById("cell-" + combination[0]);
         let cellB = document.getElementById("cell-" + combination[1]);
         let cellC = document.getElementById("cell-" + combination[2]);
@@ -106,16 +79,29 @@ function chekWin(){
         if(cellA.textContent !== "" &&
             cellA.textContent === cellB.textContent &&
             cellB.textContent === cellC.textContent){
-            console.log("vinto da:", cellA.textContent);
+            console.log("The winner is:", cellA.textContent);
+            win = true;
+            //if there is a winner player, isn't possible to click on the cells
+            cells.forEach(cell => {
+                cell.onclick = null;
+            });
             break;
-        }          
+        }
     }
 }
 
-//players buttons
-/* 
-una volta premuti, si aggiunge una classe css che li fa sparire
-*/
+//ONCLICK
+btnPlayer1.onclick = function(event){
+    setCurrentPlayer(event);
+    cellElement();
+}
+
+btnPlayer2.onclick = function(event){
+    setCurrentPlayer(event);
+    cellElement();
+}
+
+
 
 //restart button
 /* 
