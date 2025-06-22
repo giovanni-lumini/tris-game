@@ -25,11 +25,13 @@ let cells = document.querySelectorAll(".cell");
 
 function setCurrentPlayer(event){
     let buttonPlayer = event.target.id;
+    console.log(buttonPlayer);
+    
     if (buttonPlayer === "btn-player1"){
-        currentPlayer = "X";
+        currentPlayer = "x";
         console.log("Start Player1 (" + currentPlayer + ")"); 
     }else{
-        currentPlayer = "O";
+        currentPlayer = "o";
     console.log("Start Player2 (" + currentPlayer + ")");
     }
     btnPlayer1.disabled = true;
