@@ -1,3 +1,18 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.title{
+    font-weight: 900;
+    font-size: 3rem;
+}
+
 .height{
+    height: 5rem;
     aspect-ratio: 1/1;
+}
+
+.winner {
+    background-color: rgb(25, 135, 84);
+    border: solid 1px black !important;
+    color: white;
 }

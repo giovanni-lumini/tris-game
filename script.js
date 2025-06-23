@@ -102,6 +102,9 @@ function checkWin(){
             win = true;
             gameFinished = true;
             console.log("The winner is:", cellA.textContent);
+            cellA.classList.add("winner");
+            cellB.classList.add("winner");
+            cellC.classList.add("winner");
             if(gameFinished === true){
                 for(let i = 0; i< cells.length; i++){
                     if(cells[i].textContent === ""){
@@ -119,13 +122,12 @@ function checkWin(){
             break;
         }
     }
-    
 }
 
 //check if there is a draw
 function draw(){
     if(countCellsClicked === 9 && win === false){
-        console.log("draw");
+        console.log("Draw");
         gameFinished = true;
     }
 }
@@ -141,6 +143,7 @@ function restart(){
     countCellsClicked = 0;
     cells.forEach(cell => {
         cell.textContent = "";
+        cell.classList.remove("winner")
     })
     //reactivate clicks
     cellElement();
